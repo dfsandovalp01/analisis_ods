@@ -1,4 +1,4 @@
-gradio==4.44.0
+gradio==4.16.0
 sentence-transformers==2.2.0
 InstructorEmbedding==1.0.0
 plotly==5.14.0
