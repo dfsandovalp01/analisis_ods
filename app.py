@@ -973,7 +973,7 @@ def crear_app():
                 
                 btn.click(search, query_in, [query_out,ods,meta,indicador,genero,poblacional,etnico,pilar,estrategia,categoria,bdl_ods])
                 # btn.click(cara_utility, [a_valu, trials], cara_output)
-                
+            """    
             with gr.Tab('CONSULTA ESPECIALIZADA'):
 
               # with gr.Tab("CONSULTA"): 
@@ -1194,7 +1194,7 @@ def crear_app():
                     )
                   
                 btn_esp.click(search, query_in_esp, [query_out_esp,ods_esp,meta_esp,indicador_esp,genero_esp,poblacional_esp,etnico_esp,pilar_esp,estrategia_esp,categoria_esp,bdl_ods_esp])
-
+            """
                 
           
         # Pie de página
