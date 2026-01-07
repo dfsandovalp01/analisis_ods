@@ -1,5 +1,5 @@
 gradio==5.23.2
-sentence-transformers==2.2.0
+sentence-transformers==2.7.0
 InstructorEmbedding==1.0.0
 plotly==5.14.0
 matplotlib==3.7.0
