@@ -12,7 +12,7 @@ Características:
 - Estadísticas en tiempo real
 - Diseño responsivo y profesional
 
-Autor: Sistema de Visualización ODS
+Autor: Daniel Sandvoval
 Fecha: Noviembre 2025
 """
 
@@ -25,12 +25,12 @@ import plotly.express as px
 from plotly.subplots import make_subplots
 import matplotlib.pyplot as plt
 import seaborn as sns
-from modelos_nlp_db import search
+from src.embeddings.modelos_nlp_db import search
 
 # Importar funciones de visualización
 import sys
 # sys.path.insert(0, '/home/claude')
-from visualizaciones_ods import (
+from src.visualization.visualizaciones_ods import (
     cargar_datos,
     viz_1_distribucion_por_ods,
     viz_2_heatmap_ods_ranking,
@@ -74,7 +74,7 @@ def convertir_logo_a_base64(logo_path):
     # except Exception as e:
     #     print(f"⚠️  Error al cargar logo: {e}")
     #     return ""
-    ruta = '/content/drive/MyDrive/Compartida/06_Desarrollo de la herramienta IA/01_MPTF /archivos_trabajo/app_visualizaciones/inputs/img'
+    ruta = 'config/institucional/logos'
     with open(f'{ruta}/{logo_path}', "rb") as image_file:
       encoded = base64.b64encode(image_file.read()).decode()
       return f"data:image/png;base64,{encoded}"
@@ -83,8 +83,8 @@ def convertir_logo_a_base64(logo_path):
 
 # Cargar logos una sola vez al iniciar
 print("Cargando logos institucionales...")
-LOGO_GOBIERNO = convertir_logo_a_base64("GOBIERNO-DE-COLOMBIA_HORIZONTAL.png")
-LOGO_FONDO = convertir_logo_a_base64("LOGO MPTF (ESP).png")
+LOGO_GOBIERNO = convertir_logo_a_base64("/institucional/GOBIERNO-DE-COLOMBIA_HORIZONTAL.webp")
+LOGO_FONDO = convertir_logo_a_base64("/institucional/LOGO MPTF (ESP).webp")
 
 
 if LOGO_GOBIERNO and LOGO_FONDO:
@@ -93,25 +93,25 @@ else:
     print("⚠️  Algunos logos no se pudieron cargar")
 
 dict_logos = {
-  'gobierno': convertir_logo_a_base64("GOBIERNO-DE-COLOMBIA_HORIZONTAL.png"),
-  'fondo_un': convertir_logo_a_base64("LOGO MPTF (ESP).png"),
-  'ods_1': convertir_logo_a_base64("S-WEB-Goal-01.png"),
-  'ods_2': convertir_logo_a_base64("S-WEB-Goal-02.png"),
-  'ods_3': convertir_logo_a_base64("S-WEB-Goal-03.png"),
-  'ods_4': convertir_logo_a_base64("S-WEB-Goal-04.png"),
-  'ods_5': convertir_logo_a_base64("S-WEB-Goal-05.png"),
-  'ods_6': convertir_logo_a_base64("S-WEB-Goal-06.png"),
-  'ods_7': convertir_logo_a_base64("S-WEB-Goal-07.png"),
-  'ods_8': convertir_logo_a_base64("S-WEB-Goal-08.png"),
-  'ods_9': convertir_logo_a_base64("S-WEB-Goal-09.png"),
-  'ods_10': convertir_logo_a_base64("S-WEB-Goal-10.png"),
-  'ods_11': convertir_logo_a_base64("S-WEB-Goal-11.png"),
-  'ods_12': convertir_logo_a_base64("S-WEB-Goal-12.png"),
-  'ods_13': convertir_logo_a_base64("S-WEB-Goal-13.png"),
-  'ods_14': convertir_logo_a_base64("S-WEB-Goal-14.png"),
-  'ods_15': convertir_logo_a_base64("S-WEB-Goal-15.png"),
-  'ods_16': convertir_logo_a_base64("S-WEB-Goal-16.png"),
-  'ods_17': convertir_logo_a_base64("S-WEB-Goal-17.png"),  
+  'gobierno': convertir_logo_a_base64("/institucional/GOBIERNO-DE-COLOMBIA_HORIZONTAL.webp"),
+  'fondo_un': convertir_logo_a_base64("/institucional/LOGO MPTF (ESP).webp"),
+  'ods_1': convertir_logo_a_base64("/ods/S-WEB-Goal-01.webp"),
+  'ods_2': convertir_logo_a_base64("/ods/S-WEB-Goal-02.webp"),
+  'ods_3': convertir_logo_a_base64("/ods/S-WEB-Goal-03.webp"),
+  'ods_4': convertir_logo_a_base64("/ods/S-WEB-Goal-04.webp"),
+  'ods_5': convertir_logo_a_base64("/ods/S-WEB-Goal-05.webp"),
+  'ods_6': convertir_logo_a_base64("/ods/S-WEB-Goal-06.webp"),
+  'ods_7': convertir_logo_a_base64("/ods/S-WEB-Goal-07.webp"),
+  'ods_8': convertir_logo_a_base64("/ods/S-WEB-Goal-08.webp"),
+  'ods_9': convertir_logo_a_base64("/ods/S-WEB-Goal-09.webp"),
+  'ods_10': convertir_logo_a_base64("/ods/S-WEB-Goal-10.webp"),
+  'ods_11': convertir_logo_a_base64("/ods/S-WEB-Goal-11.webp"),
+  'ods_12': convertir_logo_a_base64("/ods/S-WEB-Goal-12.webp"),
+  'ods_13': convertir_logo_a_base64("/ods/S-WEB-Goal-13.webp"),
+  'ods_14': convertir_logo_a_base64("/ods/S-WEB-Goal-14.webp"),
+  'ods_15': convertir_logo_a_base64("/ods/S-WEB-Goal-15.webp"),
+  'ods_16': convertir_logo_a_base64("/ods/S-WEB-Goal-16.webp"),
+  'ods_17': convertir_logo_a_base64("/ods/S-WEB-Goal-17.webp"),  
 }
 
 # Ruta al archivo de datos
@@ -903,12 +903,11 @@ def crear_app():
     
     with gr.Blocks(
         title="Sistema de Visualización ODS",
-        # theme=gr.themes.Soft(
-        #     primary_hue="indigo",
-        #     secondary_hue="orange",
-        #     neutral_hue="slate"
-        # ),
-        theme="light",
+        theme=gr.themes.Soft(
+            primary_hue="indigo",
+            secondary_hue="orange",
+            neutral_hue="slate"
+        ),
         css=CUSTOM_CSS
     ) as app:
 
@@ -945,8 +944,8 @@ def crear_app():
             # PESTAÑA: CONSULTA
             with gr.Tab("CONSULTA BASICA"):
                 with gr.Column():
-                  query_in = gr.Textbox(lines=5, placeholder="Escribe aquí tu consulta...", label="")
-                  query_out = gr.Textbox(lines=5, label="Texto ajustado para lenguaje natural")
+                  query_in = gr.Textbox(lines=5, placeholder="Escribe aquí tu consulta...", label="Iniciativa a analizar")
+                  query_out = gr.Textbox(lines=5, label="Texto ajustado para lenguaje natural", visible=False)
                 
                 btn = gr.Button(value="Analizar mi iniciativa")
                 
@@ -980,8 +979,8 @@ def crear_app():
               # with gr.Tab("CONSULTA"): 
 
                 with gr.Column():
-                  query_in_esp = gr.Textbox(lines=5, placeholder="Escribe aquí tu consulta...", label="")
-                  query_out_esp = gr.Textbox(lines=5, label="Texto ajustado para lenguaje natural")
+                  query_in_esp = gr.Textbox(lines=5, placeholder="Escribe aquí tu consulta...", label="Iniciativa a analizar")
+                  query_out_esp = gr.Textbox(lines=5, label="Texto ajustado para lenguaje natural", visible=False)
                 
                 btn_esp = gr.Button(value="Analizar mi iniciativa")
                 

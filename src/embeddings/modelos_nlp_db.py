@@ -150,17 +150,17 @@ import numpy as np
 
 
 def search(query):
-  patr_tblinput = '/content/drive/MyDrive/Compartida/06_Desarrollo de la herramienta IA/01_MPTF /insumos/Copy of Iniciativas priorizadas PATR 385.xlsx' #"CSV with PATR projects (columns: id, descripcion, ...).")
-  ods_tblinput = '/content/drive/MyDrive/Compartida/06_Desarrollo de la herramienta IA/01_MPTF /documentos_para_revision/tabla_odsDescripcion.xlsx'
-  meta_tblinput = '/content/drive/MyDrive/Compartida/06_Desarrollo de la herramienta IA/01_MPTF /documentos_para_revision/tabla_lvlMetaOds.xlsx'
-  indicador_tblinput = '/content/drive/MyDrive/Compartida/06_Desarrollo de la herramienta IA/01_MPTF /documentos_para_revision/marco_ods_ids.xlsx'
-  genero_tblinput = '/content/drive/MyDrive/Compartida/06_Desarrollo de la herramienta IA/01_MPTF /documentos_para_revision/genero.xlsx'
-  poblacional_tblinput = '/content/drive/MyDrive/Compartida/06_Desarrollo de la herramienta IA/01_MPTF /documentos_para_revision/poblacional.xlsx'
-  etnico_tblinput = '/content/drive/MyDrive/Compartida/06_Desarrollo de la herramienta IA/01_MPTF /documentos_para_revision/etnico.xlsx'
-  pilares_tblinput = '/content/drive/MyDrive/Compartida/06_Desarrollo de la herramienta IA/01_MPTF /documentos_para_revision/pilares.xlsx' #"CSV with ODS list (columns: ods_id, titulo, descripcion).")
-  categorias_tblinput = '/content/drive/MyDrive/Compartida/06_Desarrollo de la herramienta IA/01_MPTF /documentos_para_revision/categorias.xlsx'
-  estrategias_tblinput = '/content/drive/MyDrive/Compartida/06_Desarrollo de la herramienta IA/01_MPTF /documentos_para_revision/estrategias.xlsx'
-  out_dir = '/content/drive/MyDrive/Compartida/06_Desarrollo de la herramienta IA/01_MPTF /archivos_trabajo/salidas/modelo_instructor/data/out' #"Output directory.")
+#   patr_tblinput = ' //Copy of Iniciativas priorizadas PATR 385.xlsx' #"CSV with PATR projects (columns: id, descripcion, ...).")
+  ods_tblinput = Path('data/raw/v1_tabla_odsDescripcion.xlsx')
+  meta_tblinput = Path('data/raw/v1_tabla_lvlMetaOds.xlsx')
+  indicador_tblinput = Path('data/raw/marco_ods_ids.xlsx')
+  genero_tblinput = Path('data/raw/genero.xlsx')
+  poblacional_tblinput = Path('data/raw/poblacional.xlsx')
+  etnico_tblinput = Path('data/raw/etnico.xlsx')
+  pilares_tblinput = Path('data/raw/pilares.xlsx') #"CSV with ODS list (columns: ods_id, titulo, descripcion).")
+  categorias_tblinput = Path('data/raw/categorias.xlsx')
+  estrategias_tblinput = Path('data/raw/estrategias.xlsx')
+  out_dir = Path('data/embeddings') #"Output directory.")
   model_name = "hkunlp/instructor-large" #help="HF model name for embeddings.")
   instr_proj = "Representa el propósito de desarrollo sostenible del siguiente proyecto territorial" #"Instruction for PATR projects.")
   instr_ods = "Representa el tema central del siguiente ODS" #"Instruction for ODS texts.")
@@ -190,8 +190,8 @@ def search(query):
   estrategias_df = pd.read_excel(estrategias_tblinput)
   categorias_df = pd.read_excel(categorias_tblinput)
 
-  nlp = spacy.load("es_core_news_md")
-  query = limpiar_texto(query, nlp)
+#   nlp = spacy.load("es_core_news_md")
+#   query = limpiar_texto(query, nlp)
   patr_texts = list([query])
   # print(len(patr_texts))
   ods_texts  = (ods_df["ods"].fillna("") + ". " + ods_df["descripcion"].fillna("")).tolist()
@@ -211,27 +211,41 @@ def search(query):
   # print('texts')
   # print([len(x) for x in texts])
 
-  instruc_bases = ["Representa el tema central del siguiente objetivo de desarrollo sostenible", "Representa el tema central de la siguiente meta de desarrollo sostenible", 
-                  "Representa el tema central del siguiente ODS", "Representa el tema central del siguiente de enfoque", "Representa el tema central del siguiente de enfoque poblacional",
+  instruc_bases = [
+                  "Representa la definición global de los Objetivo de Desarrollo Sostenible (ODS) para su uso como categoría de referencia en la clasificación de iniciativas ciudadanas.",
+                  "Representa la definición global de las metas de los Objetivos de Desarrollo Sostenible (ODS) para su uso como categoría de referencia en la clasificación de iniciativas ciudadanas", 
+                  "Representa el tema central del siguiente ODS", 
+                  "Representa el tema central del siguiente de enfoque", 
+                  "Representa el tema central del siguiente de enfoque poblacional",
                   "Representa el tema central del siguiente de enfoque etnico",
-                  "Representa el tema de los siguiente ejes temáticos y estratégicos", "Representa el tema de las siguiente estrategias","Representa el tema de las siguientes categorias"]
+                  "Representa el tema de los siguiente ejes temáticos y estratégicos", 
+                  "Representa el tema de las siguiente estrategias",
+                  "Representa el tema de las siguientes categorias"
+                  ]
 
-  instruc_iniciativas = ["Representa el siguiente proyecto territorial en terminos de los objetivos de desarrollo sostenible ", "Representa el siguiente proyecto territorial en terminos de las metas de desarrollo sostenible",
-                        "Representa el siguiente proyecto territorial en terminos de los indicadores de desarrollo sostenible", "Representa el siguiente proyecto territorial en terminos del enfoque de genero", "Representa el siguiente proyecto territorial en terminos del enfoque poblacional",
-                        "Representa el siguiente proyecto territorial en terminos del enfoque etnico", 
-                        "Representa el siguiente proyecto territorial en terminos de ejes temáticos y estratégicos", "Representa el siguiente proyecto territorial en terminos de la estrategia", "Representa el siguiente proyecto territorial en terminos de la categoria"]
+  instruc_iniciativas = [
+                        "Representa la iniciativa de planificación territorial y construcción de paz en Colombia para clasificarla según su alineación semántica con los Objetivos de Desarrollo Sostenible (ODS)", 
+                        "Representa la iniciativa de planificación territorial y construcción de paz en Colombia para clasificarla según su alineación semántica con las metas globales de los Objetivos de Desarrollo Sostenible (ODS)",
+                        "Representa la iniciativa de planificación territorial y construcción de paz en Colombia para clasificarla según su alineación semántica con los indicadores globales de los Objetivos de Desarrollo Sostenible (ODS)",
+                        "Representa la iniciativa de proyecto de construcción de paz para clasificar si aplica el Enfoque de Género, detectando acciones afirmativas dirigidas a mujeres rurales, madres cabeza de familia, liderazgo femenino o cierre de brechas de desigualdad entre hombres y mujeres.grupos poblacionales según sexo, identidad de género, orientación sexual o roles de género.mujeres, equidad de género, igualdad de oportunidades, discriminación, violencia basada en género", 
+                        "Representa la iniciativa de proyecto de construcción de paz para clasificar si aplica el enfoque poblacional, reconoce explícitamente la diversidad poblacional y plantea acciones diferenciadas según edad, condición o situación social. juventudes, niñez, adultos mayores, personas con discapacidad, víctimas del conflicto, migrantes, refugiados",
+                        "Representa la iniciativa de proyecto de construcción de paz para clasificar si aplica el enfoque etnico, reconoce diversidad étnica y cultural,  plantea acciones diferenciadas para estos grupos. Indígenas, negros, afrodescendientes, raizales, palenqueros, rom, resguardos, palenques, consejos comunitarios", 
+                        "Representa el siguiente proyecto territorial en terminos de ejes temáticos y estratégicos", 
+                        "Representa el siguiente proyecto territorial en terminos de la estrategia", 
+                        "Representa el siguiente proyecto territorial en terminos de la categoria"
+                        ]
 
 
 
   # Compute fingerprint and cache path
   # fingerprint = build_ods_fingerprint(model_name, instr_ods, ods_texts)
   # fingerprint = [build_ods_fingerprint(model_name, instr, texts[idx]) for idx, instr in enumerate(instruc_bases)]
-  fingerprint = ['7cb4c79002a04c14d92c9e1e4e9b251a','fe327349acadb19200187b58a565304b','07948e6beafe34049ca8a7309363eee2','9a4c52cf18e95c52566c0b657a25c44f','5a8b0dd04b865e8f1c356a64795b3b67',
+  fingerprint = ['e109a32969828923f9ddf6f4ad59328d','e0d3b674182b1e8ab9280544bd9e8532','07948e6beafe34049ca8a7309363eee2','9a4c52cf18e95c52566c0b657a25c44f','5a8b0dd04b865e8f1c356a64795b3b67',
                   'c0973f650cac27181b3751aa9666819b','0a475def7da8551abdd502e1d042dc00','42e4e8bfb28dc47602e662a27d8b4e76','e0338741fd4e7b08ab7f92a32e08919b']
 
 
-  ods_cache_path = cache_path or os.path.join(out_dir, f"tabla_odsDescripcion_{fingerprint[0]}.npz")
-  meta_cache_path = cache_path or os.path.join(out_dir, f"tabla_lvlMetaOds_{fingerprint[1]}.npz")
+  ods_cache_path = cache_path or os.path.join(out_dir, f"v1_tabla_odsDescripcion_{fingerprint[0]}.npz")
+  meta_cache_path = cache_path or os.path.join(out_dir, f"v1_tabla_lvlMetaOds_{fingerprint[1]}.npz")
   indicadores_cache_path = cache_path or os.path.join(out_dir, f"ods_embeddings_{fingerprint[2]}.npz")
   genero_cache_path = cache_path or os.path.join(out_dir, f"tabla_genero_{fingerprint[3]}.npz")
   poblacional_cache_path = cache_path or os.path.join(out_dir, f"tabla_poblacional_{fingerprint[4]}.npz")
