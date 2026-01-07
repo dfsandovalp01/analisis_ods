@@ -74,8 +74,8 @@ def convertir_logo_a_base64(logo_path):
     # except Exception as e:
     #     print(f"⚠️  Error al cargar logo: {e}")
     #     return ""
-    ruta = 'config/institucional/logos'
-    with open(f'{ruta}/{logo_path}', "rb") as image_file:
+    ruta = Path('config/institucional/logos')
+    with open(Path(f'{ruta}/{logo_path}'), "rb") as image_file:
       encoded = base64.b64encode(image_file.read()).decode()
       return f"data:image/png;base64,{encoded}"
 
