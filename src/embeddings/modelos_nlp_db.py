@@ -69,7 +69,7 @@ def load_cache(cache_path: str):
         meta = json.load(f)
     return emb, meta
 
-import spacy
+# import spacy
 
 def limpiar_texto(texto, nlp):
     """
