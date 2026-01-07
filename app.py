@@ -950,22 +950,22 @@ def crear_app():
                 btn = gr.Button(value="Analizar mi iniciativa")
                 
                 with gr.Row():
-                  ods = gr.Dataframe(datatype="pandas", label="ODS")
-                  meta = gr.Dataframe(datatype="pandas", label="METAS")
-                  indicador = gr.Dataframe(datatype="pandas", label="INDICADORES")                   
+                  ods = gr.Dataframe( label="ODS")
+                  meta = gr.Dataframe( label="METAS")
+                  indicador = gr.Dataframe( label="INDICADORES")                   
 
                 with gr.Row():
-                  genero = gr.Dataframe(datatype="pandas", label="Enfoque de genero")
-                  poblacional = gr.Dataframe(datatype="pandas", label="Enfoque poblacional")
-                  etnico = gr.Dataframe(datatype="pandas", label="Enfoque étnico")
+                  genero = gr.Dataframe( label="Enfoque de genero")
+                  poblacional = gr.Dataframe( label="Enfoque poblacional")
+                  etnico = gr.Dataframe( label="Enfoque étnico")
 
                 with gr.Row():
-                  pilar = gr.Dataframe(datatype="pandas", label="Pilares")
-                  estrategia = gr.Dataframe(datatype="pandas", label="Estrategias")
-                  categoria = gr.Dataframe(datatype="pandas", label="Categorias") 
+                  pilar = gr.Dataframe( label="Pilares")
+                  estrategia = gr.Dataframe( label="Estrategias")
+                  categoria = gr.Dataframe( label="Categorias") 
                 
                 with gr.Row():
-                  bdl_ods = gr.Dataframe(value=pd.DataFrame(),datatype="pandas", label="BDL_ODS")
+                  bdl_ods = gr.Dataframe(value=pd.DataFrame(), label="BDL_ODS")
 
                   # query_in.render()
                   # indicador, indicador_norm, query, pilares, estrategias, categorias = search()
@@ -991,22 +991,22 @@ def crear_app():
 
                 with gr.Tab("Clasificaciones"):
                   with gr.Row():
-                    ods_esp = gr.Dataframe(value=pd.DataFrame(),datatype="pandas", label="ODS")
-                    meta_esp = gr.Dataframe(value=pd.DataFrame(),datatype="pandas", label="METAS")
-                    indicador_esp = gr.Dataframe(value=pd.DataFrame(),datatype="pandas", label="INDICADORES")                   
+                    ods_esp = gr.Dataframe(value=pd.DataFrame(), label="ODS")
+                    meta_esp = gr.Dataframe(value=pd.DataFrame(), label="METAS")
+                    indicador_esp = gr.Dataframe(value=pd.DataFrame(), label="INDICADORES")                   
 
                   with gr.Row():
-                    genero_esp = gr.Dataframe(value=pd.DataFrame(),datatype="pandas", label="Enfoque de genero")
-                    poblacional_esp = gr.Dataframe(value=pd.DataFrame(),datatype="pandas", label="Enfoque poblacional")
-                    etnico_esp = gr.Dataframe(value=pd.DataFrame(),datatype="pandas", label="Enfoque étnico")
+                    genero_esp = gr.Dataframe(value=pd.DataFrame(), label="Enfoque de genero")
+                    poblacional_esp = gr.Dataframe(value=pd.DataFrame(), label="Enfoque poblacional")
+                    etnico_esp = gr.Dataframe(value=pd.DataFrame(), label="Enfoque étnico")
 
                   with gr.Row():
-                    pilar_esp = gr.Dataframe(value=pd.DataFrame(),datatype="pandas", label="Pilares")
-                    estrategia_esp = gr.Dataframe(value=pd.DataFrame(),datatype="pandas", label="Estrategias")
-                    categoria_esp = gr.Dataframe(value=pd.DataFrame(),datatype="pandas", label="Categorias") 
+                    pilar_esp = gr.Dataframe(value=pd.DataFrame(), label="Pilares")
+                    estrategia_esp = gr.Dataframe(value=pd.DataFrame(), label="Estrategias")
+                    categoria_esp = gr.Dataframe(value=pd.DataFrame(), label="Categorias") 
                   
                   with gr.Row():
-                    bdl_ods_esp = gr.Dataframe(value=pd.DataFrame(),datatype="pandas", label="ODS")
+                    bdl_ods_esp = gr.Dataframe(value=pd.DataFrame(), label="ODS")
 
                 # PESTAÑA: INICIO
                 with gr.Tab("🏠 Inicio"):
