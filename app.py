@@ -1247,7 +1247,8 @@ if __name__ == "__main__":
     app.launch(
         # server_name="0.0.0.0",  # Permite acceso desde cualquier IP
         # server_port=7860,        # Puerto por defecto
-        share=True             # Cambiar a True para URL pública
-        # show_error=True,         # Mostrar errores en la interfaz
+        share=True,             # Cambiar a True para URL pública
+        show_error=True,         # Mostrar errores en la interfaz
         # quiet=False              # Mostrar logs en consola
+        debug=True               # Modo debug para desarrollo
     )
