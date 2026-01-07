@@ -1,4 +1,3 @@
-# analisis_ods
 ---
 title: Análisis Iniciativas Territoriales y ODS
 emoji: 🎯
