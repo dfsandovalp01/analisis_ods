@@ -1051,7 +1051,7 @@ def crear_app():
                 with gr.Tab("🔥 2. Heatmap"):
                     with gr.Row():
                         with gr.Column(scale=2):
-                            img2 = gr.Image(label="Mapa de Calor ODS × Ranking", type="filepath")
+                            img2 = gr.Image(label="Mapa de Calor ODS × Ranking")
                         with gr.Column(scale=1):
                             exp2 = gr.Markdown()
                     
@@ -1171,7 +1171,7 @@ def crear_app():
                 with gr.Tab("🔀 10. Matriz Transición"):
                     with gr.Row():
                         with gr.Column(scale=2):
-                            img10 = gr.Image(label="Matriz de Transición", type="filepath")
+                            img10 = gr.Image(label="Matriz de Transición")
                         with gr.Column(scale=1):
                             exp10 = gr.Markdown()
                     
